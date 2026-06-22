@@ -24,16 +24,12 @@ jobs:
         run: npm install -g newman newman-reporter-htmlextra
 
       - name: Run Postman collection
-        env:
-          BASE_URL: ${{ secrets.BASE_URL }}
-          TOKEN: ${{ secrets.TOKEN }}
-          USER_ID: ${{ secrets.USER_ID }}
         run: |
           newman run "JSONPlaceholder API.postman_collection.json" \
             --environment "Development.postman_environment.json" \
-            --env-var "token=$TOKEN"
-            --env-var "baseUrl=$BASE_URL"
-            --env-var "userId=$USER_ID"
+            --env-var "baseUrl=${{ secrets.BASE_URL }}" \
+            --env-var "token=${{ secrets.TOKEN }}" \
+            --env-var "userId=${{ secrets.USER_ID }}" \
             --reporters cli,htmlextra \
             --reporter-htmlextra-export report.html
 
