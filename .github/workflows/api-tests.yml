@@ -23,6 +23,12 @@ jobs:
       - name: Install Newman
         run: npm install -g newman newman-reporter-htmlextra
 
+      - name: Debug secrets
+        run: |
+          echo "BASE_URL set: ${{ secrets.BASE_URL != '' }}"
+          echo "TOKEN set: ${{ secrets.TOKEN != '' }}"
+          echo "USER_ID set: ${{ secrets.USER_ID != '' }}"
+
       - name: Run Postman collection
         run: |
           newman run "JSONPlaceholder API.postman_collection.json" \
